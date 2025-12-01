@@ -16,20 +16,46 @@ class Main {
             Service s = new Service();
             Scanner scanner = new Scanner(System.in);
 
-            System.out.print("Podaj imię studenta: ");
-            String name = scanner.nextLine();
+            while (true) {
+                System.out.println("\n--- MENU ---");
+                System.out.println("1. Dodaj studenta");
+                System.out.println("2. Wyświetl wszystkich studentów");
+                System.out.println("3. Wyjście");
+                System.out.print("Wybierz opcję: ");
 
-            System.out.print("Podaj wiek studenta: ");
-            int age = scanner.nextInt();
+                int option = scanner.nextInt();
+                scanner.nextLine();
 
-            s.addStudent(new Student(name, age));
+                if (option == 1) {
+                    System.out.print("Podaj imię studenta: ");
+                    String name = scanner.nextLine();
 
-            var students = s.getStudents();
-            for (Student current : students) {
-                System.out.println(current.ToString());
+                    System.out.print("Podaj wiek studenta: ");
+                    int age = scanner.nextInt();
+                    scanner.nextLine();
+
+                    s.addStudent(new Student(name, age));
+                    System.out.println("Student dodany.");
+                }
+                else if (option == 2) {
+                    var students = s.getStudents();
+                    System.out.println("\n--- Lista studentów ---");
+                    for (Student current : students) {
+                        System.out.println(current.ToString());
+                    }
+                    System.out.println("------------------------");
+                }
+                else if (option == 3) {
+                    System.out.println("Koniec programu.");
+                    break;
+                }
+                else {
+                    System.out.println("Nieprawidłowa opcja!");
+                }
             }
 
             scanner.close();
+
         } catch (IOException e) {
             System.out.println("Błąd podczas pracy z plikiem: " + e.getMessage());
         }
