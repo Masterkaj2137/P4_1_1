@@ -11,53 +11,35 @@ import java.io.IOException;
 import java.util.Scanner;
 
 class Main {
-    public static void main(String[] args) {
-        try {
-            Service s = new Service();
-            Scanner scanner = new Scanner(System.in);
+  public static void main(String[] args) {
+    try {
+      Service s = new Service();
+      Scanner scanner = new Scanner(System.in);
 
-            while (true) {
-                System.out.println("\n--- MENU ---");
-                System.out.println("1. Dodaj studenta");
-                System.out.println("2. Wyświetl wszystkich studentów");
-                System.out.println("3. Wyjście");
-                System.out.print("Wybierz opcję: ");
+      System.out.print("Podaj imię: ");
+      String name = scanner.nextLine();
 
-                int option = scanner.nextInt();
-                scanner.nextLine();
+      System.out.print("Podaj nazwisko: ");
+      String surname = scanner.nextLine();
 
-                if (option == 1) {
-                    System.out.print("Podaj imię studenta: ");
-                    String name = scanner.nextLine();
+      System.out.print("Podaj wiek: ");
+      int age = scanner.nextInt();
+      scanner.nextLine(); // usunięcie \n
 
-                    System.out.print("Podaj wiek studenta: ");
-                    int age = scanner.nextInt();
-                    scanner.nextLine();
+      System.out.print("Podaj kierunek studiów: ");
+      String field = scanner.nextLine();
 
-                    s.addStudent(new Student(name, age));
-                    System.out.println("Student dodany.");
-                }
-                else if (option == 2) {
-                    var students = s.getStudents();
-                    System.out.println("\n--- Lista studentów ---");
-                    for (Student current : students) {
-                        System.out.println(current.ToString());
-                    }
-                    System.out.println("------------------------");
-                }
-                else if (option == 3) {
-                    System.out.println("Koniec programu.");
-                    break;
-                }
-                else {
-                    System.out.println("Nieprawidłowa opcja!");
-                }
-            }
+      s.addStudent(new Student(name, surname, age, field));
 
-            scanner.close();
+      System.out.println("\n--- Lista studentów ---");
+      var students = s.getStudents();
+      for(Student current : students) {
+        System.out.println(current.ToString());
+      }
 
-        } catch (IOException e) {
-            System.out.println("Błąd podczas pracy z plikiem: " + e.getMessage());
-        }
+      scanner.close();
+    } catch (IOException e) {
+      System.out.println("Błąd: " + e.getMessage());
     }
+  }
 }
