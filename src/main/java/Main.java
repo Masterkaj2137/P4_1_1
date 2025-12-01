@@ -1,12 +1,3 @@
-/*
-Kod bazowy programu Commit4_0: 
-• Program dodaje do prostej bazy danych (pliku db.txt) dane odnośnie Studentów.
-• Studenci dodawani są w klasie Main.
-• Wszyscy studenci są wypisywani na końcu klasy Main.
-• Klasa Service obsługuje odczyt i zapis do pliku bazy danych.
-• Klasa Student reprezentuje pojedynczego studenta (Imię, Wiek).
-*/
-
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -16,25 +7,56 @@ class Main {
       Service s = new Service();
       Scanner scanner = new Scanner(System.in);
 
-      System.out.print("Podaj imię: ");
-      String name = scanner.nextLine();
+      while(true) {
+        System.out.println("\n--- MENU ---");
+        System.out.println("1. Dodaj studenta (imię + wiek)");
+        System.out.println("2. Dodaj studenta z dodatkowymi danymi (imię + wiek + kraj)");
+        System.out.println("3. Wypisz wszystkich studentów");
+        System.out.println("4. Wyjście");
+        System.out.print("Wybierz opcję: ");
 
-      System.out.print("Podaj nazwisko: ");
-      String surname = scanner.nextLine();
+        int option = scanner.nextInt();
+        scanner.nextLine(); // usunięcie \n
 
-      System.out.print("Podaj wiek: ");
-      int age = scanner.nextInt();
-      scanner.nextLine(); // usunięcie \n
+        if(option == 1) {
+          System.out.print("Podaj imię: ");
+          String name = scanner.nextLine();
 
-      System.out.print("Podaj kierunek studiów: ");
-      String field = scanner.nextLine();
+          System.out.print("Podaj wiek: ");
+          int age = scanner.nextInt();
+          scanner.nextLine();
 
-      s.addStudent(new Student(name, surname, age, field));
+          s.addStudent(new Student(name, age));
+          System.out.println("Dodano studenta.");
+        }
+        else if(option == 2) {
+          System.out.print("Podaj imię: ");
+          String name = scanner.nextLine();
 
-      System.out.println("\n--- Lista studentów ---");
-      var students = s.getStudents();
-      for(Student current : students) {
-        System.out.println(current.ToString());
+          System.out.print("Podaj wiek: ");
+          int age = scanner.nextInt();
+          scanner.nextLine();
+
+          System.out.print("Podaj kraj: ");
+          String country = scanner.nextLine();
+
+          s.addStudent(new Student(name, age, country));
+          System.out.println("Dodano studenta z dodatkowymi danymi.");
+        }
+        else if(option == 3) {
+          var students = s.getStudents();
+          System.out.println("\n--- Lista studentów ---");
+          for(Student current : students) {
+            System.out.println(current.ToString());
+          }
+        }
+        else if(option == 4) {
+          System.out.println("Koniec.");
+          break;
+        }
+        else {
+          System.out.println("Nieprawidłowa opcja!");
+        }
       }
 
       scanner.close();
